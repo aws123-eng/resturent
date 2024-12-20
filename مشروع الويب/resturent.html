@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منيو المطعم</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <h1>منيو المطعم</h1>
+            <div class="auth-links">
+                <a href="login.html">تسجيل الدخول / التسجيل</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="menu">
+        <div class="menu-item">
+            <img src="C:\Users\lenovo\Desktop\مشروع الويب\photo\Burger.jpg" alt="برغر" class="menu-img">
+            <h3>بيف برغر</h3>
+            <p class="description">برغر مع جبن، خضروات، وصوص خاص.</p>
+            <p class="price">25 شيقل</p>
+            <form action="order.php" method="POST">
+                <input type="hidden" name="item_name" value="برغر لذيذ">
+                <input type="hidden" name="item_price" value="25">
+                <input type="hidden" name="item_image" value="burger.jpg">
+                <button type="submit" class="order-btn">اطلب الآن</button>
+            </form>
+        </div>
+
+        <div class="menu-item">
+            <img src="C:\Users\lenovo\Desktop\مشروع الويب\photo\pizza.jpg" alt="بيتزا" class="menu-img">
+            <h3>بيتزا مارجريتا</h3>
+            <p class="description">بيتزا مع جبن موتزاريلا وصلصة طماطم طازجة.</p>
+            <p class="price">35شيقل</p>
+            <form action="order.php" method="POST">
+                <input type="hidden" name="item_name" value="بيتزا مارجريتا">
+                <input type="hidden" name="item_price" value="35">
+                <input type="hidden" name="item_image" value="pizza.jpg">
+                <button type="submit" class="order-btn">اطلب الآن</button>
+            </form>
+        </div>
+
+        <div class="menu-item">
+            <img src="C:\Users\lenovo\Desktop\مشروع الويب\photo\Basta.jpg" alt="باستا" class="menu-img">
+            <h3>باستا الفريدو</h3>
+            <p class="description">باستا مع صوص كريمي وقطع دجاج مشوي.</p>
+            <p class="price">40 شيقل</p>
+            <form action="order.php" method="POST">
+                <input type="hidden" name="item_name" value="باستا الفريدو">
+                <input type="hidden" name="item_price" value="40">
+                <input type="hidden" name="item_image" value="pasta.jpg">
+                <button type="submit" class="order-btn">اطلب الآن</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2024 جميع الحقوق محفوظة - منيو المطعم</p>
+    </footer>
+
+    <script >document.querySelector('.login-btn').addEventListener('click', function() {
+        document.getElementById('login-form').style.display = 'block';
+        document.getElementById('signup-form').style.display = 'none';
+    });
+    
+    document.querySelector('.signup-btn').addEventListener('click', function() {
+        document.getElementById('login-form').style.display = 'none';
+        document.getElementById('signup-form').style.display = 'block';
+    });
+    </script>
+</body>
+</html>
