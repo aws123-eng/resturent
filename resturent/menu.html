@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>منيو المطعم</title>
+    <link rel="stylesheet" href="styles/menu.css">
+</head>
+<body>
+    <header>
+        <h1>منيو المطعم</h1>
+        <a href="logout.php">تسجيل الخروج</a>
+    </header>
+    <section class="menu">
+        <!-- برغر -->
+        <div class="menu-item">
+            <h3>برغر</h3>
+            <p>25 شيقل</p>
+            <form action="order_process.php" method="POST">
+                <input type="hidden" name="item_name" value="برغر">
+                <input type="hidden" name="item_price" value="25">
+                <button type="submit">اطلب الآن</button>
+            </form>
+        </div>
+
+        <!-- بيتزا -->
+        <div class="menu-item">
+            <h3>بيتزا مارجريتا</h3>
+            <p>35 شيقل</p>
+            <form action="order_process.php" method="POST">
+                <input type="hidden" name="item_name" value="بيتزا مارجريتا">
+                <input type="hidden" name="item_price" value="35">
+                <button type="submit">اطلب الآن</button>
+            </form>
+        </div>
+
+        <!-- باستا -->
+        <div class="menu-item">
+            <h3>باستا الفريدو</h3>
+            <p>40 شيقل</p>
+            <form action="order_process.php" method="POST">
+                <input type="hidden" name="item_name" value="باستا الفريدو">
+                <input type="hidden" name="item_price" value="40">
+                <button type="submit">اطلب الآن</button>
+            </form>
+        </div>
+    </section>
+</body>
+</html>
