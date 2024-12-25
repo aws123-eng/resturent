@@ -1,39 +1,78 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "user_management");
+session_start();
+include("db_connection.php");
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+// If the user is already logged in, redirect them to their dashboard
+if (isset($_SESSION['id'])) {
+    if ($_SESSION['privilege'] == 'admin') {
+        header("Location: admin_dashboard.php");
+    } else {
+        header("Location: user_dashboard.php");
+    }
+    exit();
+}
+
+if (isset($_POST['register'])) {
     $username = $_POST['username'];
+    $password = $_POST['password'];
     $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    $privilege = $_POST['privilege'];
-    $photo = $_FILES['photo']['name'];
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);  // Hash the password for security
 
-    $target_dir = "uploads/";
-    $target_file = $target_dir . basename($photo);
-    move_uploaded_file($_FILES['photo']['tmp_name'], $target_file);
+    // Check if the username already exists in the database
+    $sql = "SELECT * FROM users WHERE username='$username'";
+    $result = $conn->query($sql);
 
-    $conn->query("INSERT INTO users (username, email, password, privilege, photo) 
-                  VALUES ('$username', '$email', '$password', '$privilege', '$photo')");
-    header("Location: login.php");
+    if ($result->num_rows > 0) {
+        $error = "Username already exists!";
+    } else {
+        // Insert the new user into the database with 'user' privilege
+        $sql = "INSERT INTO users (username, password, email, privilege) 
+                VALUES ('$username', '$hashed_password', '$email', 'user')";
+        
+        if ($conn->query($sql) === TRUE) {
+            header("Location: login.php");  // Redirect to login page after successful registration
+            exit();
+        } else {
+            $error = "Error: " . $conn->error;
+        }
+    }
 }
 ?>
+
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
-    <title>Register</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <form method="POST" enctype="multipart/form-data">
-        <h2>Create Account</h2>
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <select name="privilege">
-            <option value="admin">Admin</option>
-            <option value="user">User</option>
-        </select>
-        <input type="file" name="photo" required>
-        <button type="submit">Register</button>
-    </form>
+
+    <div class="register-container">
+        <h2>Register as a User</h2>
+
+        <?php
+        if (isset($error)) {
+            echo "<p class='error'>$error</p>";
+        }
+        ?>
+
+        <form action="register.php" method="POST">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" required>
+
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" required>
+
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" required>
+
+            <button type="submit" name="register">Register</button>
+        </form>
+        
+        <p>Already have an account? <a href="login.php">Login here</a></p>
+    </div>
+
 </body>
+</html>

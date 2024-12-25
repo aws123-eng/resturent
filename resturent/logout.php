@@ -1,6 +1,7 @@
 <?php
 session_start();
-session_destroy(); // تدمير الجلسة
-header("Location: login.php"); // إعادة التوجيه إلى صفحة تسجيل الدخول
+session_unset();  // Removes all session variables
+session_destroy();  // Destroys the session
+header("Location: login.php");  // Redirects to login page
 exit();
 ?>

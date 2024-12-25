@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'datacontext.php';
+include 'db_connection.php';
 
 // التحقق من تسجيل دخول المستخدم
 if (!isset($_SESSION['user_id'])) {
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // تحضير استعلام SQL لإدخال الطلب في قاعدة البيانات
-    $stmt = $pdo->prepare("INSERT INTO `order` (user_id, item_name, item_price) VALUES (:user_id, :item_name, :item_price)");
+    $stmt =$pdo->prepare("INSERT INTO `order` (user_id, item_name, item_price) VALUES (:user_id, :item_name, :item_price)");
 
     // تنفيذ الاستعلام
     if ($stmt->execute(['user_id' => $userId, 'item_name' => $itemName, 'item_price' => $itemPrice])) {
